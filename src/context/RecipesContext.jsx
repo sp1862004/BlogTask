@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+ import { createContext, useContext, useState, useEffect } from 'react';
 import { get, ref, remove, set } from 'firebase/database';
 import db from '../../firebase';
 
-const BlogContext = createContext();
+const RecipesContext = createContext();
 
-export const useBlog = () => useContext(BlogContext);
+export const useRecipes = () => useContext(RecipesContext);
 
-export const BlogProvider = ({ children }) => {
+export const RecipesProvider = ({ children }) => {
     const [data, setData] = useState([]);
 
     const getApi = async () => {
-        const dbRef = ref(db, "BlogName");
+        const dbRef = ref(db, "RecipesName");
         const snapshot = await get(dbRef);
         let arr = [];
         if (snapshot.exists()) {
@@ -23,15 +23,15 @@ export const BlogProvider = ({ children }) => {
     };
 
     const handleDelete = async (id) => {
-        const dbRef = ref(db, `BlogName/${id}`);
+        const dbRef = ref(db, `RecipesName/${id}`);
         await remove(dbRef);
-        getApi(); 
+        getApi();
     };
 
-    const updateBlog = async (id, newData) => {
-        const dbRef = ref(db, `BlogName/${id}`);
+    const updateRecipes = async (id, newData) => {
+        const dbRef = ref(db, `RecipesName/${id}`);
         await set(dbRef, newData);
-        getApi(); 
+        getApi();
     };
 
     useEffect(() => {
@@ -39,8 +39,8 @@ export const BlogProvider = ({ children }) => {
     }, []);
 
     return (
-        <BlogContext.Provider value={{ data, handleDelete, updateBlog }}>
+        <RecipesContext.Provider value={{ data, handleDelete, updateRecipes }}>
             {children}
-        </BlogContext.Provider>
+        </RecipesContext.Provider>
     );
 };

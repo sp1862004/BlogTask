@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="footer bg-dark text-light py-4">
             <div className="container text-center">
-                <h5 className="mb-3 ">Stay Connected</h5>
+                <h5 className="mb-3 ">Stay Connected For New Hygienic Recipes</h5>
                 <div className="social-icons mb-3">
                     <a href="/" className="social-icon">
                         <i className="fab fa-facebook-f"></i>
@@ -22,7 +22,7 @@ const Footer = () => {
                         <i className="fa-brands fa-github"></i>
                     </a>
                 </div>
-                <p className="mb-0">© {new Date().getFullYear()} <span className="blogt">SHAILESH BLOG</span> . All Rights Reserved.</p>
+                <p className="mb-0">© {new Date().getFullYear()} <span className="blogt">SHAILESH  F<i className="fa-regular fa-face-smile-wink"></i><i className="fa-regular fa-face-smile-wink"></i>DS</span> . All Rights Reserved.</p>
             </div>
         </footer>
     );

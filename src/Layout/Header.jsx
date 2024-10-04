@@ -5,7 +5,7 @@ const Header = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
                 <div className="container-fluid">
-                    <Link to={'/'} className="navbar-brand ms-5 blogt" href="#">SHAILESH BLOG</Link>
+                    <Link to={'/'} className="navbar-brand ms-5 blogt" href="#">SHAILESH F<i className="fa-regular fa-face-smile-wink"></i><i className="fa-regular fa-face-smile-wink"></i>DS</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -15,7 +15,7 @@ const Header = () => {
                                 <Link to={'/'} className="nav-link active " aria-current="page" href="#">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to={'/Index'} className="nav-link active " aria-current="page" href="#">Write-Blog</Link>
+                                <Link to={'/Index'} className="nav-link active " aria-current="page" href="#">Write-Recipes</Link>
                             </li>
 
                         </ul>

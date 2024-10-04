@@ -7,17 +7,17 @@ const Write1 = () => {
     const { register, handleSubmit, reset, setValue } = useForm();
     const navigate = useNavigate();
 
-   
+
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            
+
             const reader = new FileReader();
             reader.onloadend = () => {
-               
+
                 setValue('image', reader.result);
             };
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
         }
     };
 
@@ -34,11 +34,11 @@ const Write1 = () => {
         };
         console.log(formattedData);
 
-        const newDocRef = push(ref(db, "BlogName"));
+        const newDocRef = push(ref(db, "RecipesName"));
         set(newDocRef, formattedData).then(() => {
             alert("Data saved successfully");
             reset();
-            navigate("/"); 
+            navigate("/");
         }).catch((error) => {
             alert("Error: " + error.message);
         });
@@ -47,7 +47,7 @@ const Write1 = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h6 className='mb-4 mt-3 text-center Start-Journey'>Tell Your Story</h6>
+                <h6 className='mb-4 mt-3 text-center Start-Journey'>Tell Your Recipe</h6>
                 <div className="container">
                     <div className="row d-flex mx-auto justify-content-center">
                         <div className="col-lg-10 mx-auto mt-3 mb-2">
@@ -63,13 +63,21 @@ const Write1 = () => {
                         </div>
 
                         <div className="col-lg-10 mt-3">
-                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Enter Image Description</label>
-                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Add Your Image Name' {...register('imageDescription')} />
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Ingredients</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Added  Ingredients' {...register('Ingredients')} />
+                        </div>
+                        <div className="col-lg-10 mt-3">
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Cuisine type</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='cuisine type Indian,Italian,etc' {...register('Cuisinetype')} />
+                        </div>
+                        <div className="col-lg-10 mt-3">
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Time</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Taken Time' {...register('Time')} />
                         </div>
                     </div>
                     <div className="row d-grid mt-3 Start-Journey">
                         <div className="col-lg-10 mx-auto mb-4">
-                            <label htmlFor="journeyText" className="form-label fs-6" style={{ color: '#365E32' }}>Start Your Journey & Let The World Read It...</label>
+                            <label htmlFor="journeyText" className="form-label fs-6" style={{ color: '#365E32' }}>Instructions</label>
                             <textarea className="form-control shadow py-3 border-primary" id="journeyText" {...register('textarea')} rows="12"></textarea>
                         </div>
                     </div>

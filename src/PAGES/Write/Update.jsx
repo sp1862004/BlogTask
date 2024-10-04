@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { ref, get, set } from 'firebase/database';
+import { ref as dbRef, get, ref, set } from 'firebase/database';
+
 import db from '../../../firebase';
+
 
 const Update = () => {
     const { id } = useParams();
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
+    // const [file, setFile] = useState(null);
 
     useEffect(() => {
         if (id) {
@@ -17,11 +20,13 @@ const Update = () => {
 
     const fetchData = async () => {
         try {
-            const dbRef = ref(db, `BlogName/${id}`);
-            const snapshot = await get(dbRef);
+            console.log("Fetching data for ID:", id); 
+            const databaseRef = dbRef(db, `RecipesName/${id}`);
+            const snapshot = await get(databaseRef);
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                reset(data);
+                console.log("Fetched data:", data); 
+                reset(data); 
             } else {
                 console.log("No such document!");
             }
@@ -30,9 +35,16 @@ const Update = () => {
         }
     };
 
+    // const handleFileChange = (e) => {
+    //     const selectedFile = e.target.files[0];
+    //     console.log("Selected file:", selectedFile); // Debug log
+    //     setFile(selectedFile);
+    // };
+
     const onSubmit = async (data) => {
+    
         try {
-            const dbRef = ref(db, `BlogName/${id}`);
+            const dbRef = ref(db, `RecipesName/${id}`);
             await set(dbRef, data);
             alert("Data saved successfully!");
             reset();
@@ -47,29 +59,36 @@ const Update = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <p className='mb-4 mt-3 text-center Start-Journey'>Tell Your Story</p>
+                <h6 className='mb-4 mt-3 text-center Start-Journey'>Tell Your Story</h6>
                 <div className="container">
                     <div className="row d-flex mx-auto justify-content-center">
                         <div className="col-lg-10 mx-auto mt-3 mb-2">
                             <input type="text" className='form-control shadow py-3 border-primary title' {...register('title')} autoFocus placeholder='Title' />
                         </div>
                         <div className="col-lg-7 mt-3">
-                            <label htmlFor="imageLink" className="form-label" style={{ color: '#365E32' }}>Enter Image Link</label>
-                            <input type="text" className='form-control py-3 shadow border-primary image-link' id="imageLink" {...register('image')} placeholder='Enter Image Link' />
+                            <label htmlFor="imageInput" className="form-label" style={{ color: '#365E32' }}>Upload Image</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' id="imageInput"  {...register('image')} />
                         </div>
-                        <div className="col-lg-3 mt-3 ">
+                        <div className="col-lg-3 mt-3">
                             <label htmlFor="dateInput" className="form-label" style={{ color: '#365E32' }}>Enter Current Date</label>
                             <input type="date" className='form-control py-3 shadow border-primary' id="dateInput" {...register('date')} />
                         </div>
-
                         <div className="col-lg-10 mt-3">
-                            <label htmlFor="dateInput" className="form-label" style={{ color: '#365E32' }}>Enter Image Description</label>
-                            <input type="text" className='form-control py-3 shadow border-primary  image-link' placeholder='Add Your Image Name' id="dateInput" {...register('imageDescription')} />
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Ingredients</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Added Ingredients' {...register('Ingredients')} />
+                        </div>
+                        <div className="col-lg-10 mt-3">
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Cuisine Type</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Cuisine type (e.g., Indian, Italian)' {...register('Cuisinetype')} />
+                        </div>
+                        <div className="col-lg-10 mt-3">
+                            <label htmlFor="imageDescription" className="form-label" style={{ color: '#365E32' }}>Time</label>
+                            <input type="text" className='form-control py-3 shadow border-primary' placeholder='Time Taken' {...register('Time')} />
                         </div>
                     </div>
                     <div className="row d-grid mt-3 Start-Journey">
                         <div className="col-lg-10 mx-auto mb-4">
-                            <label htmlFor="journeyText" className="form-label fs-6" style={{ color: '#365E32' }}>Start Your Journey & Let The World Read It...</label>
+                            <label htmlFor="journeyText" className="form-label fs-6" style={{ color: '#365E32' }}>Instructions</label>
                             <textarea className="form-control shadow py-3 border-primary" id="journeyText" {...register('textarea')} rows="12"></textarea>
                         </div>
                     </div>

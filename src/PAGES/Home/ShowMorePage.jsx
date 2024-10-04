@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { get, ref } from 'firebase/database';
 import db from '../../../firebase';
@@ -9,7 +9,7 @@ const ShowMorePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const dbRef = ref(db, `BlogName/${id}`);
+            const dbRef = ref(db, `RecipesName/${id}`);
             const snapshot = await get(dbRef);
             if (snapshot.exists()) {
                 setItem(snapshot.val());
@@ -34,8 +34,11 @@ const ShowMorePage = () => {
                     <div className="col-lg-12 border p-3 shadow-lg rounded">
                         <img src={item.image} height={500} className="card-img-top shadow-lg rounded" alt="..." />
                         <div className="card-body">
-                            <h6 className="card-title">{item.imageDescription}, <span style={{ color: '#5A639C' }}>Created at: {item.date}</span></h6>
+                            <h6 className="card-title">{item.imageDescription} <span style={{ color: '#5A639C' }}>Created at: {item.date}</span></h6>
                             <p className="card-text mt-4 mb-3"><b>Title</b> : {item.title}</p>
+                            <p className="card-text mt-4 mb-3"><b>Ingredients</b> : {item.Ingredients}</p>
+                            <p className="card-text mt-4 mb-3"><b>Cuisine type</b> : {item.Cuisinetype}</p>
+                            <p className="card-text mt-4 mb-3"><b>Time</b> : {item.Time}</p>
                             <p className="card-text">{item.textarea}</p>
                         </div>
                     </div>
